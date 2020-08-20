@@ -490,6 +490,9 @@ MonoBehaviour:
   - {fileID: 1705215659}
   - {fileID: 1313190863}
   showText: {fileID: 433359155}
+  ask:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &821059097
 GameObject:
   m_ObjectHideFlags: 0
