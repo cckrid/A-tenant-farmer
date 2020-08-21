@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public Text txt;        // Text 오브젝트에 접근하기
     public Image[] charactors;
     public Image showText;
-    public Image[] ask;
+    public GameObject ask;
     int[] showCnt;
     // Use this for initialization
     void Start()
@@ -37,28 +37,37 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
 
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
 
         { 
-            if (strCnt<12)
+            if (strCnt<11)
             strCnt+=1;
+           
+
             // '엔터'나 '스페이스바'를 누르면 카운트가 올라갑니다.
         }
+        
                 
-        showAll();  // 화면에 나오게 하는 함수로 연ㅋ결ㅋ
+        showAll();  // 화면에 나오게 하는 함수로 연ㅋ결ㅋ        
     }
     void showAll()
     {
         showText.gameObject.SetActive(true);
+        
         for (int i = 0; i < 2; i++)      // 등장인물의 수만큼을 써줍니다. 여기는 3명이 등장합니다.
         {
-            charactors[i].gameObject.SetActive(false);      // 모든 오브젝트를 비활성화합니다.(사람 이미지)
+            charactors[i].gameObject.SetActive(false);      // 모든 오브젝트를 비활성화합니다.(사람 이미지)            
+            ask.gameObject.SetActive(false);
         }
         charactors[showCnt[strCnt]].gameObject.SetActive(true);
         // 캐릭터의 showCnt라는 배열의 숫자에 대한 오브젝트만을 활성화합니다.
         txt.text = talk[strCnt];
         // strCnt의 차례에 맞춰 대화를 출력합니다.
+        
+        if (strCnt >= 11)
+           askshow();
     }
 
     void initialized()
@@ -95,5 +104,11 @@ public class GameManager : MonoBehaviour
         // 순서로 이루어지는 대화
     }
 
+    void askshow()
+    {
+        
+        //ask[0].gameObject.SetActive(true);
+        ask.gameObject.SetActive(true);
+    }
    // void
 }
