@@ -19,14 +19,14 @@ public class GameManager : MonoBehaviour
         strCnt = 0;
         talk = new string[talkCnt]; // 대화 저장 공간을 초기화해줍니다.
         showCnt = new int[talkCnt];
-        txt = GameObject.Find("Canvas").transform.Find("Text").GetComponent<Text>();
+        txt = GameObject.Find("TalkBox").transform.Find("Text").GetComponent<Text>();
         // 캔버스 오브젝트 아래 자식 오브젝트로 있는 Text를 호출합니다.
-        showText = GameObject.Find("Canvas").transform.Find("TalkBox").GetComponent<Image>();
+        showText = GameObject.Find("Talk").transform.Find("TalkBox").GetComponent<Image>();
         // 캔버스 오브젝트 아래 자식 오브젝트로 있는 talkScreen을 호출합니다.
 
         charactors = new Image[2];  // 이미지 호출할 배열을 만듭니다.
-        charactors[0] = GameObject.Find("Canvas").transform.Find("Player").GetComponent<Image>();  // 주인공
-        charactors[1] = GameObject.Find("Canvas").transform.Find("sisnomal").GetComponent<Image>();  // 동생        
+        charactors[0] = GameObject.Find("Talk").transform.Find("Player").GetComponent<Image>();  // 주인공
+        charactors[1] = GameObject.Find("Talk").transform.Find("sisnomal").GetComponent<Image>();  // 동생        
         // 각 배열에 오브젝트를 연결합니다.
         // 등장 인물이 많다면 여러개를 생성해야 합니다.
 
