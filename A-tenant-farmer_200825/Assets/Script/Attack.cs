@@ -6,47 +6,62 @@ public class Attack : MonoBehaviour
 {
     Animator anim;
     private PlayerInput playerInput; // 플레이어 입력을 알려주는 컴포넌트
-    public int atkNum;
-    bool isAtk = false;
+    public int atkNum = 0;
+    public int plusNum;    
 
     void Start()
     {
         anim = GetComponent<Animator>();
-        ComboAtk();
-    }
-
-    public void PlayAnimation(int atkNum)
-    {
-        anim.SetFloat("Blend", atkNum);
-        anim.SetTrigger("Atk");
-    }   
-
-    public void ComboAtk()
-    {
         
-        if (Input.GetButton("Fire1"))
-        {
-            
-            PlayAnimation(atkNum++);
-            if (atkNum > 3)
-            {
-                atkNum = 0;
-                isAtk = false;
-            }
-        }
-        else
-        {
-            PlayAnimation(0);
-            isAtk = false;
-            atkNum = 0;
-        }
     }
-    public void Update()
+
+    private void FixedUpdate()
     {
-        if (Input.GetButton("Fire1") )
-        {            
-            isAtk = true;
+        onClick();
+        cases();
+    }
+
+        public void onClick()
+        {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            plusNum += 1;
             Debug.Log("클릭공격");
+        }        
+        
+        
+        }
+
+    public void cases()
+    {
+        switch (atkNum)
+        {
+            case 1 :
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    anim.SetBool("isAttack", true);
+                }                
+                break;
+            case 2 :
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    anim.SetBool("isAttack", false);
+                    anim.SetBool("isAttack2", true);
+                }                
+                break;
+            case 3 :
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    anim.SetBool("isAttack2", false);
+                    anim.SetBool("isAttack3", true);
+                }
+                else if (Input.GetButtonUp("Fire1"))
+                {
+                    anim.SetBool("isAttack3", false);                    
+                    atkNum = 0;
+                    plusNum = 0;
+                }
+                break;
         }
     }
 }
