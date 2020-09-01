@@ -4,64 +4,82 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
-    Animator anim;
-    private PlayerInput playerInput; // 플레이어 입력을 알려주는 컴포넌트
-    public int atkNum = 0;
-    public int plusNum;    
+    Animator anim;    
+    private PlayerInput playerInput; // 플레이어 입력을 알려주는 컴포넌트    
+    public int plusNum= 0;
+    public int AttackNum = 0;
+    
 
     void Start()
     {
-        anim = GetComponent<Animator>();
+        anim = GetComponent<Animator>();        
         
     }
-
-    private void FixedUpdate()
+    private void Update()
     {
-        onClick();
+        OnClick();
         cases();
     }
 
-        public void onClick()
+
+    public void OnClick()
+    {
+            if (Input.GetButtonDown("Fire1"))
+            {                
+                plusNum = AttackNum + 1;            
+                Debug.Log("클릭공격 : " + plusNum);
+
+            }
+        else
         {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            plusNum += 1;
-            Debug.Log("클릭공격");
-        }        
-        
-        
+            anim.SetBool("isAttack", false);            
+            anim.SetFloat("AttackCount", 0);            
+
         }
+
+        AttackNum = plusNum;
+
+    }
 
     public void cases()
     {
-        switch (atkNum)
+        switch (AttackNum)
         {
             case 1 :
-                if (Input.GetButtonDown("Fire1"))
-                {
+                
                     anim.SetBool("isAttack", true);
-                }                
-                break;
-            case 2 :
-                if (Input.GetButtonDown("Fire1"))
+                    anim.SetFloat("AttackCount", 1);
+                if (anim.GetBool("isWalk") == true)
                 {
                     anim.SetBool("isAttack", false);
-                    anim.SetBool("isAttack2", true);
-                }                
-                break;
-            case 3 :
-                if (Input.GetButtonDown("Fire1"))
-                {
-                    anim.SetBool("isAttack2", false);
-                    anim.SetBool("isAttack3", true);
-                }
-                else if (Input.GetButtonUp("Fire1"))
-                {
-                    anim.SetBool("isAttack3", false);                    
-                    atkNum = 0;
+                    anim.SetFloat("AttackCount", 0);
                     plusNum = 0;
+                    AttackNum = 0;
                 }
                 break;
+            case 2 :                
+                    anim.SetBool("isAttack", true);
+                    anim.SetFloat("AttackCount", 2);
+                if (anim.GetBool("isWalk") == true)
+                {
+                    anim.SetBool("isAttack", false);
+                    anim.SetFloat("AttackCount", 0);
+                    plusNum = 0;
+                    AttackNum = 0;
+                }
+                break;
+                
+            case 3 :                
+                    anim.SetBool("isAttack", true);
+                    anim.SetFloat("AttackCount", 3);
+                if (Input.GetButtonUp("Fire1"))
+                {
+                    anim.SetBool("isAttack", false);
+                    anim.SetFloat("AttackCount", 0);
+                    plusNum = 0;
+                    AttackNum = 0;
+                }
+                    break;                   
         }
     }
 }
