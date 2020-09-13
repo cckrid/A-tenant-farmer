@@ -34,16 +34,16 @@ public class Attack : MonoBehaviour
             {                
                 plusNum = AttackNum + 1;            
                 Debug.Log("클릭공격 : " + plusNum);
-                Debug.Log("어택카운트 : " + anim.GetBool("AttackCount"));
+                Debug.Log("어택카운트 : " + anim.GetFloat("AttackCount"));
 
-            Hit = true;
+                //Hit = true;
 
             }
-        else if (Input.GetButtonUp("Fire1") && anim.GetFloat("AttackCount")==3)
+        else if (Input.GetButtonUp("Fire1") )
         {
             anim.SetBool("isAttack", false);
-            anim.SetFloat("AttackCount", 0);
-            Hit = false;
+            
+            //Hit = false;
 
         }
         AttackNum = plusNum;
@@ -63,14 +63,12 @@ public class Attack : MonoBehaviour
                 break;
                 
             case 3 :                
-                playState = PlayerState.attack3;
+                playState = PlayerState.attack3;                
                 break;
             default:
                 
-                    anim.SetBool("isAttack", false);
-                    anim.SetFloat("AttackCount", 0);
-                //plusNum = 0;
-                //AttackNum = 0;      
+                plusNum = 0;
+                AttackNum = 0;
                 break;
         }
     }    
@@ -81,26 +79,76 @@ public class Attack : MonoBehaviour
                 {
                     case PlayerState.attack1:
                         anim.SetBool("isAttack", true);
-                        anim.SetFloat("AttackCount", 1);                        
-                        break;
+                        anim.SetFloat("AttackCount", 1);
+                        Hit = true;
+                    if (Input.GetButtonUp("Fire1"))
+                    {
+                        anim.SetBool("isAttack", false);
+                        anim.SetFloat("AttackCount", 4);
+                        playState = PlayerState.walk;
+                        Hit = false;
+                    }
+                if (anim.GetBool("isWalk") == true)
+                    {
+                        anim.SetBool("isAttack", false);
+                        anim.SetFloat("AttackCount", 0);
+                        AttackNum = 0;
+                        plusNum = 0;
+                        playState = PlayerState.walk;
+                        Hit = false;
+                    }
+                break;
                     case PlayerState.attack2:
                 
                     anim.SetBool("isAttack", true);
-                    anim.SetFloat("AttackCount", 2);                                
-                        break;
-                    case PlayerState.attack3:
-                
-                    anim.SetBool("isAttack", true);
-                    anim.SetFloat("AttackCount", 3);
-                    if(anim.GetBool("isWalk") == true)                    
+                    anim.SetFloat("AttackCount", 2);
+                    Hit = true;
+                    if (Input.GetButtonUp("Fire1"))
                     {
-                    anim.SetBool("isAttack", false);
-                    anim.SetFloat("AttackCount", 0);
-                    AttackNum = 0;
-                    plusNum = 0;
+                        anim.SetBool("isAttack", false);
+                        anim.SetFloat("AttackCount", 4);
+                        playState = PlayerState.walk;
+                        Hit = false;
+                    }
+                if (anim.GetBool("isWalk") == true)
+                    {
+                        anim.SetBool("isAttack", false);
+                        anim.SetFloat("AttackCount", 0);
+                        AttackNum = 0;
+                        plusNum = 0;
+                        playState = PlayerState.walk;
+                        Hit = false;
+                    }                    
+                    break;
+
+                    case PlayerState.attack3:
+
+
+                    if (Input.GetButtonUp("Fire1"))
+                    {
+                        anim.SetBool("isAttack", false);
+                        anim.SetFloat("AttackCount", 4);
+                        playState = PlayerState.walk;
+                        Hit = false;
+                    }
+                else
+                    {
+                        anim.SetBool("isAttack", true);
+                        anim.SetFloat("AttackCount", 3);
+                        Hit = true;
+                    }
+                    
+                if (anim.GetBool("isWalk") == true)                    
+                    {
+                        anim.SetBool("isAttack", false);
+                        anim.SetFloat("AttackCount", 0);
+                        AttackNum = 0;
+                        plusNum = 0;
+                        playState = PlayerState.walk;
+                        Hit = false;
                     }
 
-                    break;
+                break;
                 }
             
         
@@ -111,12 +159,11 @@ public class Attack : MonoBehaviour
             MonsterControll monster = other.gameObject.GetComponent<MonsterControll>();
             if(monster != null)
             {
-                Debug.Log(Hit);
-                if(Hit == true)
+                Debug.Log("칼 : " + Hit);
+            if (Hit == true)
                 {
                     monster.TakeDamage(10);
-                    Debug.Log("칼");
-                    //Hit = false;
+                                      
                 }
                                 
             }        
