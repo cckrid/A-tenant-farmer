@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 0.01f; // 앞뒤 움직임의 속도
     public float rotateSpeedA = 150.0f; // 좌우 회전 속도
     public float rotateSpeedB = 150.0f; // 좌우 회전 속도
-    public GameObject walkEffect;
+    //public GameObject walkEffect;
     private Animator playerAnimator; // 플레이어 캐릭터의 애니메이터
     private PlayerInput playerInput; // 플레이어 입력을 알려주는 컴포넌트
     private Rigidbody playerRigidbody; // 플레이어 캐릭터의 리지드바디
@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
         // 상대적으로 이동할 거리 계산
         if (Input.GetButton("Vertical"))
         {
-            walkEffect.SetActive(true);
+            //walkEffect.SetActive(true);
             playerAnimator.SetBool("isWalk", true);
             Vector3 moveDistance =
             playerInput.moveY * transform.forward * moveSpeed * Time.deltaTime;
@@ -68,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (Input.GetButton("Horizontal"))
             {
-                walkEffect.SetActive(true);
+                //walkEffect.SetActive(true);
                 playerAnimator.SetBool("isWalk", true);
                 Vector3 moveDistance =
                  playerInput.moveX * transform.right * moveSpeed * Time.deltaTime;
@@ -83,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 playerAnimator.SetBool("isWalk", false);
-                walkEffect.SetActive(false);
+                //walkEffect.SetActive(false);
             }
         }
 
